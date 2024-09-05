@@ -27,7 +27,6 @@
               $idCont = $show->id_contatos;
               $nome = $show->nome_contatos;
               $fone = $show->fone_contatos;
-              $email = $show->email_contatos;
               $foto = $show->foto_contatos;
           } else {
               // Se nenhum contato foi encontrado, exibe uma mensagem de erro
@@ -46,7 +45,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Editar Contato</h1>
+            <h1>Editar Local</h1>
           </div>
           
         </div>
@@ -63,7 +62,7 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">editar contato</h3>
+                <h3 class="card-title">editar locais</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
@@ -77,10 +76,10 @@
                     <label for="exampleInputPassword1">Telefone</label>
                     <input type="text" class="form-control" name="telefone" id="telefone" required value="<?php echo $fone; ?>">
                   </div>
-                  <div class="form-group">
+                  <!-- <div class="form-group">
                     <label for="exampleInputEmail1">Endereço de E-mail</label>
-                    <input type="email" class="form-control" name="email" id="email" required value="<?php echo $email; ?>">
-                  </div>
+                    <input type="email" class="form-control" name="email" id="email" required value="">
+                  </div> -->
                   
                   <div class="form-group">
                     <label for="exampleInputFile">Foto do contato</label>

@@ -15,7 +15,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>New Agenda 2.0 | Log in</title>
+  <title>Eventos Pulse | Entrar</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -33,7 +33,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>New Agenda</b> 2.0</a>
+    <a href="../../index2.html"><b>Eventos</b> Pulse</a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
@@ -63,7 +63,7 @@
           </div>
           <!-- /.col -->
           <div class="col-12" style="margin-bottom: 5px">
-            <button type="submit" name="login" class="btn btn-primary btn-block">Acessar a Agenda</button>
+            <button type="submit" name="login" class="btn btn-primary btn-block">Acessar Eventos Pulse</button>
           </div>
           <!-- /.col -->
         </div>
@@ -82,7 +82,7 @@ if (isset($_GET['acao'])) {
        
     } elseif ($acao == 'sair') {
         echo '<div class="alert alert-warning"><button type="button" class="close" data-dismiss="alert">×</button>
-        <strong>Você acabou de sair da Agenda Eletrônica!</strong> :(</div>';
+        <strong>Você acabou de sair do Eventos Pulse!</strong> :(</div>';
        
     }
 }
@@ -111,7 +111,7 @@ if (isset($_POST['login'])) {
                     $_SESSION['senhaUser'] = $user['id_user'];
 
                     echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">×</button>
-                    <strong>Logado com sucesso!</strong> Você será redirecionado para a agenda :)</div>';
+                    <strong>Logado com sucesso!</strong> Você será redirecionado para a o Sistema de Eventos Pulse :)</div>';
 
                     header("Refresh: 5; url=paginas/home.php?acao=bemvindo");
                 } else {

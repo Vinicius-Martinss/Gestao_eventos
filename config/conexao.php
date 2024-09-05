@@ -3,7 +3,7 @@
 if (!defined('DB_CONFIG')) {
     define('DB_CONFIG', [
         'host' => 'localhost',
-        'dbname' => 'gest_eventos',
+        'dbname' => 'Gestao_eventos',
         'user' => 'root',
         'pass' => 'bdjmf'
     ]);

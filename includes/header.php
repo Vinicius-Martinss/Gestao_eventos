@@ -22,7 +22,7 @@ include_once('sair.php');
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Agenda Eletrônica</title>
+  <title>Eventos Pulse</title>
   <!-- DataTables -->
   <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -114,7 +114,7 @@ try {
           </a>
           <div class="dropdown-divider"></div>
           <a href="?sair" class="dropdown-item">
-          <i class="fas fa-sign-out-alt mr-2"></i> Sair da Agenda
+          <i class="fas fa-sign-out-alt mr-2"></i> Sair do Sistema de Eventos
             
           </a>
           
@@ -132,7 +132,7 @@ try {
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-      <span class="brand-text font-weight-light">Agenda Eletrônica</span>
+      <span class="brand-text font-weight-light">Eventos Pulse</span>
     </a>
 
     <!-- Sidebar -->

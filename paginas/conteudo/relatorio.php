@@ -14,7 +14,7 @@
         
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Lista de contatos</h3>
+                <h3 class="card-title">Lista de Eventos</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -25,7 +25,7 @@
                     <th style="text-align:center">Foto</th>
                     <th>Nome</th>
                     <th style="text-align:left">Telefone</th>
-                    <th>E-mail</th>
+                    <th>Local</th>
                     <th>Ações</th>
                   </tr>
 
@@ -69,7 +69,7 @@
           ?></td>
                       <td><?php echo $show->nome_contatos; ?></td>
                       <td><?php echo $show->fone_contatos; ?></td>
-                      <td><?php echo $show->email_contatos; ?></td>
+                      <td><?php echo $show->local_evento; ?></td>
                       
                       <td>
                       <div class="btn-group">
@@ -101,7 +101,7 @@
                     <th style="text-align:center">Foto</th>
                     <th>Nome</th>
                     <th style="text-align:left">Telefone</th>
-                    <th>E-mail</th>
+                    <th>Local</th>
                     <th>Ações</th>
                   </tr>
                   </tfoot>

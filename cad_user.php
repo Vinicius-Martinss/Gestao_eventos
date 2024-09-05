@@ -27,7 +27,7 @@
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Cadastre todos os dados para ter acesso a agenda</p>
+      <p class="login-box-msg">Cadastre todos os dados para ter acesso a gestão de eventos</p>
 
       <form action="" method="post" enctype="multipart/form-data">
       <div class="form-group">
