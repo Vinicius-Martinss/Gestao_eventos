@@ -58,7 +58,7 @@
 
                   <div class="form-group">
                     <label for="exampleInputEmail1">Local</label>
-                    <input type="text" class="form-control" name="id_local" id="id_local" required placeholder="Digite o local do evento">
+                    <input type="text" class="form-control" name="localID" id="localID" required placeholder="Digite o local do evento">
                   </div>
                   
                   <div class="form-group">
@@ -89,30 +89,25 @@
                   <button type="submit" name="botao" class="btn btn-primary">Cadastrar Evento</button>
                 </div>
               </form>
-
               <?php
 // Inclui o arquivo de conexão com o banco de dados
 include('../config/conexao.php');
+
+// Função para converter o formato de data
+function convertDateToMysqlFormat($date) {
+    $dateTime = DateTime::createFromFormat('d/m/Y h:i A', $date);
+    return $dateTime ? $dateTime->format('Y-m-d H:i:s') : null;
+}
 
 // Verifica se o formulário foi submetido
 if (isset($_POST['botao'])) {
     // Recupera os valores do formulário
     $nome_eventos = $_POST['nome_eventos'];
     $Descricao = $_POST['Descricao'];
-    $DataInicio = $_POST['DataInicio'];
-    $DataFim = $_POST['DataFim'];
-    $id_local = $_POST['id_local'];
+    $DataInicio = convertDateToMysqlFormat($_POST['DataInicio']);
+    $DataFim = convertDateToMysqlFormat($_POST['DataFim']);
+    $localID = isset($_POST['localID']) ? $_POST['localID'] : null; // Permitir valor nulo
     $id_usuario = $_POST['id_user'];
-    // Converte as datas para o formato 'YYYY-MM-DD' se necessário
-
-    try {
-  $DataInicio = date('Y-m-d', strtotime($DataInicio));
-  $DataFim = date('Y-m-d', strtotime($DataFim));
-} catch (Exception $e) {
-  echo 'Erro na conversão de data: ' . $e->getMessage();
-  exit;
-}
-
 
     // Define os formatos de imagem permitidos
     $formatP = array("png", "jpg", "jpeg", "JPG", "gif");
@@ -149,7 +144,7 @@ if (isset($_POST['botao'])) {
     }
 
     // Prepara a consulta SQL para inserir os dados no banco de dados
-    $cadastro = "INSERT INTO Eventos (nome_eventos, Descricao, DataInicio, DataFim, id_local, id_user) VALUES (:nome_eventos, :Descricao, :DataInicio, :DataFim, :id_local, :id_user)";
+    $cadastro = "INSERT INTO Eventos (nome_eventos, Descricao, DataInicio, DataFim, localID, id_user) VALUES (:nome_eventos, :Descricao, :DataInicio, :DataFim, :localID, :id_user)";
 
     try {
         // Prepara a consulta SQL com os parâmetros
@@ -158,7 +153,7 @@ if (isset($_POST['botao'])) {
         $result->bindParam(':Descricao', $Descricao, PDO::PARAM_STR);
         $result->bindParam(':DataInicio', $DataInicio, PDO::PARAM_STR);
         $result->bindParam(':DataFim', $DataFim, PDO::PARAM_STR);
-        $result->bindParam(':id_local', $id_local, PDO::PARAM_STR);
+        $result->bindParam(':localID', $localID, PDO::PARAM_STR);
         $result->bindParam(':id_user', $id_usuario, PDO::PARAM_INT);
 
         // Executa a consulta SQL
@@ -193,8 +188,78 @@ if (isset($_POST['botao'])) {
     }
 }
 ?>
+    </div>
+</div>  
+<div class="col-md-8">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Eventos Recentes</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Nome do evento</th>
+                      <th>Descrição</th>
+                      <th>Data inicio:</th>
+                      <th>Data Fim:</th>
+                      <th>Local</th>
+                      <th style="width: 40px">Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <?php
+    // Consulta SQL para selecionar os contatos do usuário atual
+    $select = "SELECT * FROM Eventos WHERE id_user = :id_user ORDER BY EventoID DESC LIMIT 6";
 
-                                       
+    try{
+      // Prepara a consulta SQL com o parâmetro :id_user
+      $result = $conect->prepare($select);
+      // Inicializa o contador de linhas
+      $cont = 1;
+      // Vincula o ID do usuário ao parâmetro :id_user
+      $result->bindParam(':id_user', $id_user, PDO::PARAM_INT);
+      // Executa a consulta SQL
+      $result->execute();
+
+      // Verifica se a consulta retornou algum resultado
+      $contar = $result->rowCount();
+
+      if ($contar > 0) {
+        // Itera sobre cada linha de resultado da consulta
+        while ($show = $result->FETCH(PDO::FETCH_OBJ)) {
+
+      
+
+                  ?>
+                    <tr>
+                      <td><?php echo $cont++; ?></td>
+                      <td><?php echo $show->nome_eventos; ?></td>
+                      <td><?php echo $show->Descricao; ?></td>
+                      <td><?php echo $show->DataInicio; ?></td>
+                      <td><?php echo $show->DataFim; ?></td>
+                      <td><?php echo $show->localID; ?></td>
+                      <td>
+                      <div class="btn-group">
+                        <a href="home.php?acao=editar&id=<?php echo $show->EventoID; ?>" class="btn btn-success" title="Editar Evento"><i class="fas fa-user-edit"></i></button>
+                        <a href="conteudo/del-contato.php?idDel=<?php echo $show->EventoID; ?>" onclick="return confirm('Deseja remover o evento?')" class="btn btn-danger" title="Remover Contato"><i class="fas fa-user-times"></i></a>
+                      </div>
+                      </td>
+                    </tr>
+                  <?php
+                    }
+                  }else{
+                    // Se a consulta não retornar resultados, exibe uma mensagem
+                    echo '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">×</button>
+                          <strong>Não há Contatos!</strong></div>';
+                  }
+                }catch(Exception $e){
+                  // Exibe a mensagem de erro de PDO
+                  echo '<strong>ERRO DE PDO= </strong>' . $e->getMessage();
+                }
+                  ?>                                       
                   </tbody>
                 </table>
               </div>
@@ -212,4 +277,3 @@ if (isset($_POST['botao'])) {
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
