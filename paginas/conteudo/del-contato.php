@@ -1,0 +1,54 @@
+<?php 
+include ('../../config/conexao.php');
+
+if (isset($_GET['idDel'])){
+    $id = $_GET['idDel'];
+
+    // Recupera o nome da imagem do repositório
+    $select = "SELECT * FROM Eventos WHERE EventoID = :id";
+
+
+    try {
+        $result = $conect->prepare($select);
+        $result->bindValue(':id', $id, PDO::PARAM_INT);
+        $result->execute();
+
+        $contar = $result->rowCount();
+        if ($contar > 0) {
+            $show = $result->fetch(PDO::FETCH_ASSOC);
+            $foto = $show->foto_evento; // Correção aqui
+
+            if ($foto != 'foto_padra_event.png') {
+                // Caminho da imagem no servidor
+                $filepath = "../../img/eventos/" . $foto;
+
+                // Deleta a imagem
+                if (file_exists($filepath)) {
+                    unlink($filepath);
+                }
+            }
+
+            // Deleta o registro do banco de dados
+            $delete = "DELETE FROM Eventos WHERE EventoID = :id";
+            try {
+                $result = $conect->prepare($delete);
+                $result->bindValue(':id', $id, PDO::PARAM_INT);
+                $result->execute();
+
+                if ($result->rowCount() > 0) {
+                    header("Location: ../home.php");
+                } else {
+                    header("Location: ../home.php");
+                }
+            } catch (Exception $e) {
+                echo '<strong>ERROR DE DELETE: </strong> ' . $e->getMessage();
+            }
+        } else {
+            // Redirecionar se o registro não for encontrado
+            header("Location: ../home.php");
+        }
+    } catch (PDOException $e) {
+        echo '<strong>ERROR DE SELECT: </strong> ' . $e->getMessage(); // Adicionei a mensagem de erro
+    }
+}
+
