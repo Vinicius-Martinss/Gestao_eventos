@@ -69,6 +69,16 @@
 </script>
 
 <script>
+    $(document).ready(function() {
+        $('#example').DataTable();
+    });
+
+$.fn.dataTable.ext.errMode = 'throw';
+$(document).ready(function() {
+    $('#example').DataTable();
+});
+
+
   $(function () {
     $("#example1").DataTable({
       "responsive": true,
@@ -84,6 +94,7 @@
       "responsive": true,
     });
   });
+  
 </script>
 </body>
 </html>

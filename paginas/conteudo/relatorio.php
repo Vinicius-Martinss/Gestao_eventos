@@ -73,7 +73,7 @@
                                     }
                                 } else {
                                     // Se a consulta não retornar resultados, exibe uma mensagem
-                                    echo '<tr><td colspan="8" class="text-center alert alert-danger">Não há eventos!</td></tr>';
+                                    echo '<tr><td colspan="15" class="text-center alert ">Não há eventos!</td></tr>';
                                 }
                             } catch (Exception $e) {
                                 // Exibe a mensagem de erro de PDO
@@ -103,3 +103,8 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable();
+    });
+</script>

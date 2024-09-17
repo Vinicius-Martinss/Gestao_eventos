@@ -245,7 +245,7 @@ if (isset($_POST['botao'])) {
           <!-- right column -->
           <div class="col-md-8">
             <div class="card">
-              <div class="card-header">00.0
+              <div class="card-header">
                 <h3 class="card-title">Seus Eventos Recentes</h3>
               </div>
               <!-- /.card-header -->
